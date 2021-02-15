@@ -2,9 +2,9 @@ name: DEPLOY TO STAGING
 
 on:
     pull_request:
-        types : [closed]
+        types: [closed]
         branches:
-            - dev-branch
+            - dev
 
 jobs:
     aws-deploy:
@@ -12,16 +12,31 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  ref: dev-branch
+                  ref: dev
             - uses: actions/setup-node@v1
             - run: npm install
-            - run: npm run build
+            - run: npm run bundle
             - name: Deploy to Server
               uses: easingthemes/ssh-deploy@v2.1.1
               env:
-                    SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-                    ARGS: '-rltgoDzvO --delete'
-                    SOURCE: 'dist/'
-                    REMOTE_HOST: 'team3.eaglesoftwareteam.com'
-                    REMOTE_USER: ubuntu
-                    TARGET: '/var/www/html/congregation'
+                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+                  ARGS: '-rltgoDzvO --delete'
+                  SOURCE: 'deploy/'
+                  REMOTE_HOST: 'team3.eaglesoftwareteam.com'
+                  REMOTE_USER: ubuntu
+                  TARGET: 'nodeapps/congregation-backend'
+            - name: Execute SSH commmands on remote server
+              uses: JimCronqvist/action-ssh@master
+              env:
+                  NAME: 'Root'
+              with:
+                  hosts: 'ubuntu@team3.eaglesoftwareteam.com'
+                  privateKey: ${{ secrets.SERVER_SSH_KEY }}
+                  debug: false
+                  command: |
+                      cd nodeapps/congregation-backend
+                      npm install
+                      sudo systemctl stop congregation-backend
+                      sudo cp congregation-backend.service /lib/systemd/system/congregation-backend.service
+                      sudo systemctl daemon-reload
+                      sudo systemctl start congregation-backend
