@@ -1,5 +1,5 @@
 const db = require("../models");
-const Family = db.major;
+const Family = db.family;
 
 // Create and Save a new Major
 exports.create = (req, res) => {
@@ -32,12 +32,10 @@ exports.create = (req, res) => {
 // Retrieve all Majors from the database.
 exports.findAll = (req, res) => {
 
-    Family.findAndCountAll()
+    Family.findAll()
     
     .then(data => {
-
-        const response = getPagingData(data, page, limit);
-        res.send(response);
+        res.send(data);
     })
     .catch(err => {
         res.status(500).send({
@@ -124,7 +122,7 @@ exports.deleteAll = (req, res) => {
     })
     .then(nums => {
         res.send({
-            message: `${nums} Majors were deleted successfully!`
+            message: `${nums} Families were deleted successfully!`
         });
     })
     .catch(err => {
