@@ -45,8 +45,8 @@ exports.create = (req, res) => {
         fam_pos: req.body.fam_pos,
     };
 
-    // Save Student in the database
-    Person.create(student)
+    // Save Person in the database
+    Person.create(person)
     .then(data => {
         res.send(data);
     })
@@ -89,7 +89,7 @@ exports.findOne = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Student with id=" + per_ID
+            message: "Error retrieving Person with id=" + per_ID
         });
     });
 };
