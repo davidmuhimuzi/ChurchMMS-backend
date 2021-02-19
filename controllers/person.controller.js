@@ -1,5 +1,6 @@
 const db = require("../models");
 const Person = db.person;
+const Op = db.Sequelize.Op;
 
 const getPagination = (page, size) => {
     const limit = size ? +size : 3;
