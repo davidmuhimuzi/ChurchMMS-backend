@@ -1,11 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
     const Family = sequelize.define("family", {
-      family_ID: {
+      fam_ID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        unique: true,
+        allowNull: false,
         autoIncrement: true
       },
-      family_name: {
+      fam_name: {
         type: Sequelize.STRING
       },
       per_ID: {
