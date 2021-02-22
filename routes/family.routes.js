@@ -21,5 +21,5 @@ module.exports = app => {
     // Delete all Majors
     router.delete("/", Family.deleteAll);
   
-    app.use('/api/family', router);
+    app.use('/api/families', router);
 };

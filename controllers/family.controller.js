@@ -12,12 +12,13 @@ exports.create = (req, res) => {
 
     // Create a Major
     const family = {
-        family_ID: req.body.family_ID,
-        family_name: req.body.family_name,
+        fam_ID: req.body.fam_ID,
+        fam_name: req.body.fam_name,
         per_ID: req.body.per_ID,
     };
 
     // Save Major in the database
+    console.log(family);
     Family.create(family)
     .then(data => {
         res.send(data);
@@ -66,7 +67,7 @@ exports.update = (req, res) => {
 
     Family.update(req.body, {
         where: {
-            family_ID: id
+            fam_ID: id
         }
     })
     .then(num => {
@@ -93,7 +94,7 @@ exports.delete = (req, res) => {
 
     Family.destroy({
         where: {
-            family_ID: id
+            fam_ID: id
         }
     })
     .then(num => {
