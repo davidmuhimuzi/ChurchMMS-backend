@@ -2,9 +2,6 @@ const db = require("../models");
 const Person = db.person;
 //const Op = db.Sequelize.Op;
 
-
-
-
 // Create and Save a new Person
 exports.create = (req, res) => {
     if (!req.body) {
@@ -63,26 +60,26 @@ exports.findAll = (req, res) => {
 
 // Find a single Person with an id
 exports.findOne = (req, res) => {
-    const per_ID = req.params.per_ID;
+    const id = req.params.id;
 
-    Person.findByPk(per_ID)
+    Person.findByPk(id)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Person with id=" + per_ID
+            message: "Error retrieving Person with id=" + id
         });
     });
 };
 
 // Update a Person by the id in the request
 exports.update = (req, res) => {
-    const per_ID = req.params.per_ID;
+    const id = req.params.id;
 
     Person.update(req.body, {
         where: {
-            per_ID: per_ID
+            per_ID: id
         }
     })
     .then(num => {
@@ -92,40 +89,13 @@ exports.update = (req, res) => {
             });
         } else {
             res.send({
-                message: `Cannot update Person with id=${per_ID}. Maybe Person was not found or req.body is empty!`
+                message: `Cannot update Person with id=${id}. Maybe Person was not found or req.body is empty!`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error updating Person with id=" + per_ID
-        });
-    });
-};
-
-// Delete a Person with the specified id in the request
-exports.delete = (req, res) => {
-    const per_ID = req.params.per_ID;
-
-    Person.destroy({
-        where: {
-            per_ID: per_ID
-        }
-    })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Person was deleted successfully!"
-            });
-        } else {
-            res.send({
-                message: `Cannot delete Person with id=${per_ID}. Maybe Person was not found!`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Could not delete Person with id=" + per_ID
+            message: "Error updating Person with id=" + id
         });
     });
 };

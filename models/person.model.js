@@ -7,8 +7,7 @@ module.exports = (sequelize, Sequelize) => {
   
       },
       fam_ID: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true
+        type: Sequelize.INTEGER
 
       },
       frst_name: {
