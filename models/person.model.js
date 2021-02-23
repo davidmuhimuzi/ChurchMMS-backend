@@ -8,6 +8,8 @@ module.exports = (sequelize, Sequelize) => {
       },
       fam_ID: {
         type: Sequelize.INTEGER,
+        autoIncrement: true
+
       },
       frst_name: {
         type: Sequelize.STRING,

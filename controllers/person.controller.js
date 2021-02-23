@@ -1,21 +1,8 @@
 const db = require("../models");
 const Person = db.person;
-const Op = db.Sequelize.Op;
+//const Op = db.Sequelize.Op;
 
-const getPagination = (page, size) => {
-    const limit = size ? +size : 3;
-    const offset = page ? page * limit : 0;
-  
-    return { limit, offset };
-};
 
-const getPagingData = (data, page, limit) => {
-    const { count: totalItems, rows: person } = data;
-    const currentPage = page ? +page : 0;
-    const totalPages = Math.ceil(totalItems / limit);
-  
-    return { totalItems, person, totalPages, currentPage };
-  };
 
 
 // Create and Save a new Person
@@ -60,17 +47,11 @@ exports.create = (req, res) => {
 
 // Retrieve all Persons from the database.
 exports.findAll = (req, res) => {
-    const { page, size } = req.query;
+    Person.findAll()
 
-    const {limit, offset } = getPagination(page, size);
-
-    Person.findAndCountAll({ limit:limit, offset:offset })
-
-    
     .then(data => {
 
-        const response = getPagingData(data, page, limit);
-        res.send(response);
+        res.send(data);
     })
     .catch(err => {
         res.status(500).send({
@@ -145,24 +126,6 @@ exports.delete = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: "Could not delete Person with id=" + per_ID
-        });
-    });
-};
-
-// Delete all Person from the database.
-exports.deleteAll = (req, res) => {
-    Person.destroy({
-        where: {},
-        truncate: false
-    })
-    .then(nums => {
-        res.send({
-            message: `${nums} Person was deleted successfully!`
-        });
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while removing all Person."
         });
     });
 };
