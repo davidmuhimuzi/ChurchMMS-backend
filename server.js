@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+//require("./routes/family.routes")(app);
+require("./routes/person.routes")(app);
 require("./routes/family.routes")(app);
 
 // set port, listen for requests
