@@ -1,8 +1,8 @@
 const db = require("../models");
-const Family = db.family;
+const Familyperson = db.familyperson;
+const Op = db.Sequelize.Op;
 
-
-// Create and Save a new Major
+// Create and Save a new Familyperson
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -11,64 +11,68 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Major
-    const family = {
+    // Create a Familyperson
+    const familyperson = {
         fam_ID: req.body.fam_ID,
         fam_name: req.body.fam_name,
         per_ID: req.body.per_ID,
     };
 
-    // Save Major in the database
-    console.log(family);
-    Family.create(family)
+    // Save Familyperson in the database
+    Familyperson.create(familyperson)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while creating the Major."
+            message: err.message || "Some error occurred while creating the Familyperson."
         });
     });
 };
 
-// Retrieve all Majors from the database.
-exports.findAll = (req, res) => {
+// Retrieve all Familypersons from the database.
+exports.findPeopleForFamily = (req, res) => {
 
-    Family.findAll()
-    
+    var condition = fam_ID ? {
+        fam_ID: {
+        [Op.like]: `%${fam_ID}%`
+        }
+    } : null;
+
+    Familyperson.findAll({include:["person", "family"], where: condition })
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Majors."
+            message: err.message || "Some error occurred while retrieving Familypersons."
         });
     });
     
 };
 
-// Find a single Major with an id
+// Find a single Familyperson with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Family.findByPk(id)
+    Familyperson.findByPk(id)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Major with id=" + id
+            message: "Error retrieving Familyperson with id=" + id
         });
     });
 };
 
-// Update a Major by the id in the request
+// Update a Familyperson by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Family.update(req.body, {
+    Familyperson.update(req.body, {
         where: {
-            fam_ID: id
+            fp_ID: id
         }
     })
     .then(num => {
@@ -84,16 +88,16 @@ exports.update = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error updating Major with id=" + id
+            message: "Error updating Familyperson with id=" + id
         });
     });
 };
 
-// Delete a Major with the specified id in the request
+// Delete a Familyperson with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Family.destroy({
+    Familyperson.destroy({
         where: {
             fam_ID: id
         }
@@ -101,24 +105,24 @@ exports.delete = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Major was deleted successfully!"
+                message: "Familyperson was deleted successfully!"
             });
         } else {
             res.send({
-                message: `Cannot delete Major with id=${id}. Maybe Major was not found!`
+                message: `Cannot delete Familyperson with id=${id}. Maybe Familyperson was not found!`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Could not delete Major with id=" + id
+            message: "Could not delete Familyperson with id=" + id
         });
     });
 };
 
-// Delete all Majors from the database.
+// Delete all Familypersons from the database.
 exports.deleteAll = (req, res) => {
-    Family.destroy({
+    Familyperson.destroy({
         where: {},
         truncate: false
     })
@@ -129,7 +133,7 @@ exports.deleteAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while removing all Majors."
+            message: err.message || "Some error occurred while removing all Familypersons."
         });
     });
 };
