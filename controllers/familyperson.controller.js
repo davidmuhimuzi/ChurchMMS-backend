@@ -16,6 +16,7 @@ exports.create = (req, res) => {
         fam_ID: req.body.fam_ID,
         fam_name: req.body.fam_name,
         per_ID: req.body.per_ID,
+        fam_role: req.body.fam_role
     };
 
     // Save Familyperson in the database
@@ -32,7 +33,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Familypersons from the database.
 exports.findPeopleForFamily = (req, res) => {
-
+    const fam_ID = req.query.family;
+    console.log(fam_ID);
     var condition = fam_ID ? {
         fam_ID: {
         [Op.like]: `%${fam_ID}%`
@@ -99,7 +101,7 @@ exports.delete = (req, res) => {
 
     Familyperson.destroy({
         where: {
-            fam_ID: id
+            fp_ID: id
         }
     })
     .then(num => {

@@ -30,12 +30,16 @@ db.person.hasMany(db.familyperson, {
   as: 'familyperson',
   foreignKey: 'per_ID'
 });
-
+db.familyperson.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+});
 db.family.hasMany(db.familyperson, {
   as: 'familyperson',
   foreignKey: 'fam_ID'
 });
 db.familyperson.belongsTo(db.family, {
+  as: 'family',
   foreignKey: 'fam_ID'
 });
 

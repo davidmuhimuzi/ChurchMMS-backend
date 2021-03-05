@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER
       },
       fam_role: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     }, {
       tableName: 'familyperson'
