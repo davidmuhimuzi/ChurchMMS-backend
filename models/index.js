@@ -25,6 +25,7 @@ db.sequelize = sequelize;
 db.family = require("./family.model.js")(sequelize, Sequelize);
 db.familyperson = require("./familyperson.model.js")(sequelize, Sequelize);
 db.person = require("./person.model.js")(sequelize, Sequelize);
+db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
 
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
