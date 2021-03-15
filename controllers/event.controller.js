@@ -12,14 +12,16 @@ exports.create = (req, res) => {
 
     // Create an Event
     const event = {
-        event_ID: req.body.event_ID,
+        evt_ID: req.body.event_ID,
         event_name: req.body.event_name,
-        start_date: req.body.start_date,
-        end_date: req.body.end_date,
-        description: req.body.description
+        event_date: req.body.event_date,
+        event_start: req.body.event_start,
+        event_end: req.body.event_end,
+        event_desc: req.body.description,
+        loc_ID: req.body.location,
     };
 
-    // Save Event in the database
+    // Save Event in the database  
     console.log(event);
     Event.create(event)
     .then(data => {
@@ -69,7 +71,7 @@ exports.update = (req, res) => {
 
     Event.update(req.body, {
         where: {
-            event_ID: id
+            evt_ID: id
         }
     })
     .then(num => {
@@ -96,7 +98,7 @@ exports.delete = (req, res) => {
 
     Event.destroy({
         where: {
-            event_ID: id
+            evt_ID: id
         }
     })
     .then(num => {

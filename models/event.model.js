@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Event = sequelize.define("event", {
-    event_ID: {
+    evt_ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       unique: true,
@@ -10,17 +10,24 @@ module.exports = (sequelize, Sequelize) => {
     event_name: {
       type: Sequelize.STRING
     },
-    description: {
+    event_desc: {
       type: Sequelize.STRING
     },
-    start_date: {
+    event_date: {
       type: Sequelize.DATE
     },
-    end_date: {
-      type: Sequelize.DATE
+    event_end: {
+      type: Sequelize.TIME
     },
+    event_start: {
+      type: Sequelize.TIME
+    },
+    loc_ID: {
+      type: Sequelize.INTEGER
+    }
 
-  }, {
+  }, 
+  {
     tableName: 'events'
   });
   return Event;
