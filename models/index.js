@@ -26,6 +26,7 @@ db.family = require("./family.model.js")(sequelize, Sequelize);
 db.familyperson = require("./familyperson.model.js")(sequelize, Sequelize);
 db.person = require("./person.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
+db.group = require("./group.model.js")(sequelize, Sequelize);
 
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
@@ -43,5 +44,6 @@ db.familyperson.belongsTo(db.family, {
   as: 'family',
   foreignKey: 'fam_ID'
 });
+
 
 module.exports = db;
