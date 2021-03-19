@@ -1,5 +1,5 @@
 const db = require("../models");
-const Event = db.events;
+const Event = db.event;
 
 // Create and Save a new Event
 exports.create = (req, res) => {
@@ -12,13 +12,13 @@ exports.create = (req, res) => {
 
     // Create an Event
     const event = {
-        evt_ID: req.body.event_ID,
+        evt_ID: req.body.evt_ID,
         event_name: req.body.event_name,
         event_date: req.body.event_date,
         event_start: req.body.event_start,
         event_end: req.body.event_end,
-        event_desc: req.body.description,
-        loc_ID: req.body.location,
+        event_desc: req.body.event_desc,
+        loc_ID: req.body.loc_ID,
     };
 
     // Save Event in the database  
@@ -37,10 +37,13 @@ exports.create = (req, res) => {
 // Retrieve all Events from the database.
 exports.findAll = (req, res) => {
 
+    console.log("Working");
     Event.findAll()
     
     .then(data => {
+        
         res.send(data);
+        
     })
     .catch(err => {
         res.status(500).send({
