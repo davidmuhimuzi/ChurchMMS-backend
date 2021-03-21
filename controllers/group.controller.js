@@ -17,9 +17,12 @@ exports.create = (req, res) => {
         vvg_ID: req.body.vvg_ID,
         vve_ID: req.body.vve_ID,
         grp_name: req.body.grp_name,
+        per_ID: req.body.per_ID
+
     };
 
     // Save Group in the database
+    console.log(group);
     Group.create(group)
     .then(data => {
         res.send(data);
@@ -31,7 +34,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Persons from the database.
+// Retrieve all groups from the database.
 exports.findAll = (req, res) => {
     Group.findAll()
 
@@ -85,6 +88,32 @@ exports.update = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: "Error updating Group with id=" + id
+        });
+    });
+};
+
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    Group.destroy({
+        where: {
+            grp_ID: id
+        }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Group was deleted successfully!"
+            });
+        } else {
+            res.send({
+                message: `Cannot delete Group with id=${id}. Maybe Group was not found!`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Could not delete Group with id=" + id
         });
     });
 };

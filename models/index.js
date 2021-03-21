@@ -27,6 +27,7 @@ db.familyperson = require("./familyperson.model.js")(sequelize, Sequelize);
 db.person = require("./person.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
 db.group = require("./group.model.js")(sequelize, Sequelize);
+db.groupmember = require("./groupmember.model.js")(sequelize, Sequelize);
 
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
@@ -44,6 +45,26 @@ db.familyperson.belongsTo(db.family, {
   as: 'family',
   foreignKey: 'fam_ID'
 });
+
+db.person.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'per_ID'
+  
+});
+db.groupmember.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+  });
+
+db.group.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'grp_ID'
+});
+db.groupmember.belongsTo(db.group, {
+  as: 'group',
+  foreignKey: 'grp_ID'
+});
+
 
 
 module.exports = db;

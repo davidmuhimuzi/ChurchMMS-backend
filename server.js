@@ -28,6 +28,8 @@ require("./routes/family.routes")(app);
 require("./routes/familyperson.routes")(app);
 require("./routes/congregation.routes")(app);
 require("./routes/group.routes")(app);
+require("./routes/groupmember.routes")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
