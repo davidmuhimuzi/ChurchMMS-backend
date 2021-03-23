@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require('express-fileupload');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -10,6 +11,8 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.options("*", cors);
+app.use(fileUpload());
+app.use('/images', express.static(__dirname + '/public/images'));
 
 const db = require("./models");
 const Role = db.role;
@@ -49,7 +52,7 @@ require("./routes/familyperson.routes")(app);
 require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
-
+require("./routes/congregation.routes")(app);
 
 
 // set port, listen for requests

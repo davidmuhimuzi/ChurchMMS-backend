@@ -1,8 +1,10 @@
 const db = require("../models");
 const Family = db.family;
+const { v4: uuidv4 } = require('uuid');
+const fs = require('fs')
 
 
-// Create and Save a new Major
+// Create and Save a new Family
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -11,14 +13,15 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Major
+    // Create a Family
     const family = {
         fam_ID: req.body.fam_ID,
+        fam_pic: req.body.fam_pic,
         fam_name: req.body.fam_name,
         per_ID: req.body.per_ID,
     };
 
-    // Save Major in the database
+    // Save Family in the database
     console.log(family);
     Family.create(family)
     .then(data => {
@@ -26,12 +29,43 @@ exports.create = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while creating the Major."
+            message: err.message || "Some error occurred while creating the Family."
         });
     });
 };
 
-// Retrieve all Majors from the database.
+exports.upload = (req, res) => {
+    const oldPic = req.body.existingPic;
+
+    if (!req.files) {
+        return res.status(500).send({ msg: "file is not found" })
+    }
+
+    if (oldPic) {
+        const path = "./public/images" + oldPic;
+        fs.unlink(path, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+        })
+    }
+
+    const myFile = req.files.file;
+    let newName = myFile.name.split(".");
+    newName[0] = uuidv4();
+
+    myFile.name = newName[0] + "." + newName[1];
+
+    myFile.mv(`./public/images/${myFile.name}`, function (err) {
+        if (err) {
+            console.log(err)
+            return res.status(500).send({ msg: "Error occured" });
+        }
+        return res.send({name: myFile.name, path: `/${myFile.name}`});
+    });
+};
+// Retrieve all Familys from the database.
 exports.findAll = (req, res) => {
 
     Family.findAll()
@@ -41,13 +75,13 @@ exports.findAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Majors."
+            message: err.message || "Some error occurred while retrieving Familys."
         });
     });
     
 };
 
-// Find a single Major with an id
+// Find a single Family with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -57,12 +91,12 @@ exports.findOne = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Major with id=" + id
+            message: "Error retrieving Family with id=" + id
         });
     });
 };
 
-// Update a Major by the id in the request
+// Update a Family by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -84,14 +118,26 @@ exports.update = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error updating Major with id=" + id
+            message: "Error updating Family with id=" + id
         });
     });
 };
 
-// Delete a Major with the specified id in the request
+// Delete a Family with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
+    const fam_pic = req.body.fam_pic;
+
+    console.log(fam_pic);
+    if (fam_pic) {
+        const path = "./public/images" + fam_pic;
+        fs.unlink(path, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+        })
+    }
 
     Family.destroy({
         where: {
@@ -101,22 +147,22 @@ exports.delete = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Major was deleted successfully!"
+                message: "Family was deleted successfully!"
             });
         } else {
             res.send({
-                message: `Cannot delete Major with id=${id}. Maybe Major was not found!`
+                message: `Cannot delete Family with id=${id}. Maybe Family was not found!`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Could not delete Major with id=" + id
+            message: "Could not delete Family with id=" + id
         });
     });
 };
 
-// Delete all Majors from the database.
+// Delete all Familys from the database.
 exports.deleteAll = (req, res) => {
     Family.destroy({
         where: {},
@@ -129,7 +175,7 @@ exports.deleteAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while removing all Majors."
+            message: err.message || "Some error occurred while removing all Familys."
         });
     });
 };
