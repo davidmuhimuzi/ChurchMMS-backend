@@ -14,7 +14,7 @@ exports.create = (req, res) => {
     // Create a group member
     const groupmember = {
         gm_ID: req.body.gm_ID,
-        grp_ID: req.body.fam_ID,
+        grp_ID: req.body.grp_ID,
         per_ID: req.body.per_ID,
         vvg_ID: req.body.vvg_ID,
         vve_ID: req.body.vve_ID,
@@ -35,11 +35,11 @@ exports.create = (req, res) => {
 
 // Retrieve all groupmember from the database.
 exports.findMemberForGroup = (req, res) => {
-    const per_ID = req.query.person;
-    console.log(per_ID);
-    var condition = per_ID ? {
-        per_ID: {
-        [Op.like]: `%${per_ID}%`
+    const grp_ID = req.query.group;
+    
+    var condition = grp_ID ? {
+        grp_ID: {
+        [Op.like]: `%${grp_ID}%`
         }
     } : null;
 
@@ -126,8 +126,9 @@ exports.delete = (req, res) => {
 
 // Delete all Group member from the database.
 exports.deleteAll = (req, res) => {
+    const id = req.query.id;
     Groupmember.destroy({
-        where: {},
+        where: {grp_ID: id},
         truncate: false
     })
     .then(nums => {

@@ -17,7 +17,8 @@ module.exports = app => {
   
     // Delete a Course with id
     router.delete("/:id", Groupmember.delete);
-  
+    // Delete all Majors
+    router.delete("/", Groupmember.deleteAll);
   
     app.use('/api/groupmember', router);
 };
