@@ -7,6 +7,9 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         autoIncrement: true
       },
+      fam_pic: {
+        type: Sequelize.STRING
+      },
       fam_name: {
         type: Sequelize.STRING
       },

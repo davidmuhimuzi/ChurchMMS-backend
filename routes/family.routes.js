@@ -5,6 +5,8 @@ module.exports = app => {
   
     // Create a new Course
     router.post("/", Family.create);
+
+    router.post('/upload', Family.upload);
   
     // Retrieve all Majors
     router.get("/", Family.findAll);

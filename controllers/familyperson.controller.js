@@ -34,7 +34,7 @@ exports.create = (req, res) => {
 // Retrieve all Familypersons from the database.
 exports.findPeopleForFamily = (req, res) => {
     const fam_ID = req.query.family;
-    console.log(fam_ID);
+
     var condition = fam_ID ? {
         fam_ID: {
         [Op.like]: `%${fam_ID}%`
@@ -124,8 +124,10 @@ exports.delete = (req, res) => {
 
 // Delete all Familypersons from the database.
 exports.deleteAll = (req, res) => {
+    const id = req.query.id;
+
     Familyperson.destroy({
-        where: {},
+        where: {fam_ID: id},
         truncate: false
     })
     .then(nums => {
