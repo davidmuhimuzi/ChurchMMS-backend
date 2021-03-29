@@ -2,6 +2,7 @@ const express = require("express");
 const fileUpload = require('express-fileupload');
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -12,7 +13,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors);
 app.use(fileUpload());
-app.use('/images', express.static(__dirname + '/public/images'));
+app.use('/images', express.static(path.join(__dirname , '/public/images')));
 
 const db = require("./models");
 const Role = db.role;
