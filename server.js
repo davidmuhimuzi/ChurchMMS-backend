@@ -54,6 +54,8 @@ require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
+require("./routes/vvg.routes")(app);
+require("./routes/vve.routes")(app);
 
 
 // set port, listen for requests
