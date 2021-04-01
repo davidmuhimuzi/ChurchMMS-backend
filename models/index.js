@@ -29,7 +29,8 @@ db.event = require("./event.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
-
+db.validvaluegroup = require("../models/vvg.model.js")(sequelize, Sequelize);
+db.validvalueentry = require("../models/vve.model.js")(sequelize, Sequelize);
 
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
@@ -59,6 +60,17 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
+
+
+db.validvaluegroup.hasMany(db.validvalueentry, {
+  as: 'vve',
+  foreignKey: 'vvg_ID'
+});
+db.validvalueentry.belongsTo(db.validvaluegroup, {
+  as: 'vvg',
+  foreignKey: 'vvg_ID'
+});
+
 
 db.ROLES = ["user", "admin", "moderator"];
 
