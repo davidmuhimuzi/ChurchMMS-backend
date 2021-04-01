@@ -23,7 +23,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.TIME
     },
     loc_ID: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
+    },
+    color: {
+      type: Sequelize.STRING
     }
 
   }, 
