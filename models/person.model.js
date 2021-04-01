@@ -48,6 +48,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       fam_pos: {
         type: Sequelize.INTEGER,
+      },
+      notes: {
+        type: Sequelize.STRING,
       }
     }, {
       tableName: 'person'
