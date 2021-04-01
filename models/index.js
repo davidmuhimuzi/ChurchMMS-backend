@@ -29,6 +29,8 @@ db.event = require("./event.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
+db.group = require("./group.model.js")(sequelize, Sequelize);
+db.groupmember = require("./groupmember.model.js")(sequelize, Sequelize);
 
 
 db.person.hasMany(db.familyperson, {
@@ -48,6 +50,24 @@ db.familyperson.belongsTo(db.family, {
   foreignKey: 'fam_ID'
 });
 
+db.person.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'per_ID'
+  
+});
+db.groupmember.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+  });
+
+db.group.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'grp_ID'
+});
+db.groupmember.belongsTo(db.group, {
+  as: 'group',
+  foreignKey: 'grp_ID'
+});
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -61,6 +81,5 @@ db.user.belongsToMany(db.role, {
 });
 
 db.ROLES = ["user", "admin", "moderator"];
-
 
 module.exports = db;
