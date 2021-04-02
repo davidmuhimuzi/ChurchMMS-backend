@@ -28,6 +28,7 @@ exports.create = (req, res) => {
         pub_permission: req.body.pub_permission,
         church_pos: req.body.church_pos,
         fam_pos: req.body.fam_pos,
+        notes: req.body.notes,
     };
 
     // Save Person in the database

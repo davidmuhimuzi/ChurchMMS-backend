@@ -19,6 +19,7 @@ exports.create = (req, res) => {
         event_end: req.body.event_end,
         event_desc: req.body.event_desc,
         loc_ID: req.body.loc_ID,
+        color: req.body.color,
     };
 
     // Save Event in the database  
