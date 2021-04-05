@@ -46,7 +46,7 @@ function initial() {
 }
 
 
-//require("./routes/communication.routes")(app);
+require("./routes/communication.routes")(app);
 require("./routes/person.routes")(app);
 require("./routes/family.routes")(app);
 require("./routes/familyperson.routes")(app);
@@ -54,7 +54,7 @@ require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
-//require("./routes/personcontact.routes")(app);
+require("./routes/personcontact.routes")(app);
 
 
 // set port, listen for requests
