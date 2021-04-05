@@ -55,6 +55,9 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
 require("./routes/personcontact.routes")(app);
+require("./routes/group.routes")(app);
+require("./routes/groupmember.routes")(app);
+
 
 
 // set port, listen for requests
