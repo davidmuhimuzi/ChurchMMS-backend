@@ -53,6 +53,7 @@ require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
+require("./routes/lifeevent.routes")(app);
 
 
 // set port, listen for requests
