@@ -88,3 +88,29 @@ exports.update = (req, res) => {
         });
     });
 };
+// Delete a Group Member with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    Congregation.destroy({
+        where: {
+            con_ID: id
+        }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Congregation  was deleted successfully!"
+            });
+        } else {
+            res.send({
+                message: `Cannot delete Congregation with id=${id}. Maybe Group member was not found!`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Could not delete Congregation with id=" + id
+        });
+    });
+};
