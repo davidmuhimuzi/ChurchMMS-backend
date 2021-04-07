@@ -13,7 +13,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors);
 app.use(fileUpload());
-app.use('/images', express.static(path.join(__dirname , '/public/images')));
+app.use('/api/images', express.static(path.join(__dirname , '/public/images')));
 
 const db = require("./models");
 const Role = db.role;
@@ -46,7 +46,7 @@ function initial() {
 }
 
 
-//require("./routes/family.routes")(app);
+require("./routes/communication.routes")(app);
 require("./routes/person.routes")(app);
 require("./routes/family.routes")(app);
 require("./routes/familyperson.routes")(app);
@@ -54,6 +54,7 @@ require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
+require("./routes/personcontact.routes")(app);
 require("./routes/group.routes")(app);
 require("./routes/groupmember.routes")(app);
 

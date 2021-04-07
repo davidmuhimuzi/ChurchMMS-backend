@@ -29,6 +29,8 @@ db.event = require("./event.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
+db.communication = require("./communication.model.js")(sequelize, Sequelize);
+db.personcontact = require("./personcontact.model.js")(sequelize, Sequelize);
 db.group = require("./group.model.js")(sequelize, Sequelize);
 db.groupmember = require("./groupmember.model.js")(sequelize, Sequelize);
 
@@ -78,6 +80,23 @@ db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
   otherKey: "roleId"
+});
+
+db.person.hasMany(db.personcontact, {
+  as: 'personcontact',
+  foreignKey: 'per_ID'
+});
+db.personcontact.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+});
+db.communication.hasMany(db.personcontact, {
+  as: 'personcontact',
+  foreignKey: 'com_ID'
+});
+db.personcontact.belongsTo(db.communication, {
+  as: 'communication',
+  foreignKey: 'com_ID'
 });
 
 db.ROLES = ["user", "admin", "moderator"];
