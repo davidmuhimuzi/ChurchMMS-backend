@@ -19,7 +19,7 @@ exports.create = (req, res) => {
      
     };
 
-    // Save Person in the database
+    // Save Life Event in the database
     LifeEvent.create(lifeevent)
     .then(data => {
         res.send(data);
@@ -32,6 +32,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Life Events from the database.
+
 exports.findAll = (req, res) => {
     LifeEvent.findAll()
 
@@ -41,7 +42,7 @@ exports.findAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Congregation."
+            message: err.message || "Some error occurred while retrieving Life Events."
         });
     });
     
