@@ -15,7 +15,7 @@ exports.create = (req, res) => {
     const lifeevent = {
         event_ID: req.body.event_ID,
         event_date: req.body.event_date,
-        event_notes: req.body.event_notes,
+        event_note: req.body.event_note,
      
     };
 
