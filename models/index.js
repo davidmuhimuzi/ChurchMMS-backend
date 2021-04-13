@@ -29,6 +29,7 @@ db.event = require("./event.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
+db.lifeevent = require("./lifeevent.model.js")(sequelize, Sequelize);
 
 
 db.person.hasMany(db.familyperson, {
