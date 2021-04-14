@@ -30,6 +30,10 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.congregation = require("./congregation.model.js")(sequelize, Sequelize);
 db.lifeevent = require("./lifeevent.model.js")(sequelize, Sequelize);
+db.communication = require("./communication.model.js")(sequelize, Sequelize);
+db.personcontact = require("./personcontact.model.js")(sequelize, Sequelize);
+db.group = require("./group.model.js")(sequelize, Sequelize);
+db.groupmember = require("./groupmember.model.js")(sequelize, Sequelize);
 
 
 db.person.hasMany(db.familyperson, {
@@ -49,6 +53,24 @@ db.familyperson.belongsTo(db.family, {
   foreignKey: 'fam_ID'
 });
 
+db.person.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'per_ID'
+  
+});
+db.groupmember.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+  });
+
+db.group.hasMany(db.groupmember, {
+  as: 'groupmember',
+  foreignKey: 'grp_ID'
+});
+db.groupmember.belongsTo(db.group, {
+  as: 'group',
+  foreignKey: 'grp_ID'
+});
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -61,7 +83,23 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-db.ROLES = ["user", "admin", "moderator"];
+db.person.hasMany(db.personcontact, {
+  as: 'personcontact',
+  foreignKey: 'per_ID'
+});
+db.personcontact.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+});
+db.communication.hasMany(db.personcontact, {
+  as: 'personcontact',
+  foreignKey: 'com_ID'
+});
+db.personcontact.belongsTo(db.communication, {
+  as: 'communication',
+  foreignKey: 'com_ID'
+});
 
+db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;

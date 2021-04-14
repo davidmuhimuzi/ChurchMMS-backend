@@ -14,6 +14,6 @@ module.exports = app => {
   
     // Update a Person with id
     router.put("/:id", Congregation.update);
-  
+    router.delete("/:id", Congregation.delete);
     app.use('/api/congregation', router);
 };

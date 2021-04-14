@@ -1,8 +1,8 @@
 const db = require("../models");
-const Familyperson = db.familyperson;
-const Op = db.Sequelize.Op;
+const Communication = db.communication;
+//const Op = db.Sequelize.Op;
 
-// Create and Save a new Familyperson
+// Create and Save a new Communication
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -11,70 +11,64 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Familyperson
-    const familyperson = {
-        fp_ID: req.body.fp_ID,
-        fam_ID: req.body.fam_ID,
-        per_ID: req.body.per_ID,
-        fam_role: req.body.fam_role
+    // Create a Communication
+    const communication = {
+        com_ID: req.body.com_ID,
+        vvg_ID: req.body.vvg_ID,
+        vve_ID: req.body.vve_ID,
+        address: req.body.address,
+        number: req.body.number
     };
 
-    // Save Familyperson in the database
-    Familyperson.create(familyperson)
+    // Save Communication in the database
+    Communication.create(communication)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while creating the Familyperson."
+            message: err.message || "Some error occurred while creating the Communication."
         });
     });
 };
 
-// Retrieve all Familypersons from the database.
-exports.findPeopleForFamily = (req, res) => {
-    const fam_ID = req.query.family;
-
-    var condition = fam_ID ? {
-        fam_ID: {
-        [Op.like]: `%${fam_ID}%`
-        }
-    } : null;
-
-    Familyperson.findAll({include:["person", "family"], where: condition })
+// Retrieve all Communications from the database.
+exports.findAll = (req, res) => {
+    
+    Communication.findAll()
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Familypersons."
+            message: err.message || "Some error occurred while retrieving Communications."
         });
     });
     
 };
 
-// Find a single Familyperson with an id
+// Find a single Communication with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Familyperson.findByPk(id)
+    Communication.findByPk(id)
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Familyperson with id=" + id
+            message: "Error retrieving Communication with id=" + id
         });
     });
 };
 
-// Update a Familyperson by the id in the request
+// Update a Communication by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Familyperson.update(req.body, {
+    Communication.update(req.body, {
         where: {
-            fp_ID: id
+            com_ID: id
         }
     })
     .then(num => {
@@ -90,44 +84,44 @@ exports.update = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error updating Familyperson with id=" + id
+            message: "Error updating Communication with id=" + id
         });
     });
 };
 
-// Delete a Familyperson with the specified id in the request
+// Delete a Communication with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Familyperson.destroy({
+    Communication.destroy({
         where: {
-            fp_ID: id
+            com_ID: id
         }
     })
     .then(num => {
         if (num == 1) {
             res.send({
-                message: "Familyperson was deleted successfully!"
+                message: "Communication was deleted successfully!"
             });
         } else {
             res.send({
-                message: `Cannot delete Familyperson with id=${id}. Maybe Familyperson was not found!`
+                message: `Cannot delete Communication with id=${id}. Maybe Communication was not found!`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Could not delete Familyperson with id=" + id
+            message: "Could not delete Communication with id=" + id
         });
     });
 };
 
-// Delete all Familypersons from the database.
+// Delete all Communications from the database.
 exports.deleteAll = (req, res) => {
     const id = req.query.id;
 
-    Familyperson.destroy({
-        where: {fam_ID: id},
+    Communication.destroy({
+        where: {com_ID: id},
         truncate: false
     })
     .then(nums => {
@@ -137,7 +131,7 @@ exports.deleteAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while removing all Familypersons."
+            message: err.message || "Some error occurred while removing all Communications."
         });
     });
 };
