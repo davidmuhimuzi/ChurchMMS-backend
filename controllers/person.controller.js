@@ -29,6 +29,8 @@ exports.create = (req, res) => {
         church_pos: req.body.church_pos,
         fam_pos: req.body.fam_pos,
         notes: req.body.notes,
+        email: req.body.email,
+        phone: req.body.phone
     };
 
     // Save Person in the database
