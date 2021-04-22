@@ -7,7 +7,7 @@ module.exports = app => {
     router.post("/", Attendee.create);
   
     // Retrieve all Attendees
-    router.get("/", Attendee.findEventForAttendee);
+    router.get("/", Attendee.findAttendeeForEvent);
   
     // Retrieve a single Attendee with id
     router.get("/:id", Attendee.findOne);
