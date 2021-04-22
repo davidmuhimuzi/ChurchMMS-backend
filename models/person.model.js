@@ -51,6 +51,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       notes: {
         type: Sequelize.STRING,
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
       }
     }, {
       tableName: 'person'
