@@ -43,6 +43,10 @@ function initial() {
     id: 3,
     name: "admin"
   });
+  Role.create({
+    id: 4,
+    name: "leader"
+  });
 }
 
 
@@ -57,6 +61,9 @@ require("./routes/congregation.routes")(app);
 require("./routes/personcontact.routes")(app);
 require("./routes/group.routes")(app);
 require("./routes/groupmember.routes")(app);
+require("./routes/attendee.routes")(app);
+//require("./routes/personcontact.routes")(app);
+//require("./routes/communication.routes")(app);
 
 
 
