@@ -9,14 +9,14 @@ exports.create = (req, res) => {
             message: "Content can NOT be empty!"
         });
         return;
-    }
+    } 
 
     // Create an attendee
     const attendee = {
         atd_ID: req.body.atd_ID,
         evt_ID: req.body.evt_ID,
         per_ID: req.body.per_ID,
-        user_ID: req.body.user_ID,
+        username: req.body.username,
         contribution: req.body.contribution
     };
 
@@ -42,7 +42,7 @@ exports.findAttendeeForEvent = (req, res) => {
         }
     } : null;
 
-    Attendee.findAll({include:["events", "attendee"], where: condition })
+    Attendee.findAll({include:["event", "attendee"], where: condition })
     .then(data => {
         res.send(data);
     })

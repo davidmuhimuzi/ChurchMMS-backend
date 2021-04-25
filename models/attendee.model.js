@@ -13,8 +13,8 @@ module.exports = (sequelize, Sequelize) => {
       per_ID: {
         type: Sequelize.INTEGER
       },
-      user_ID: {
-        type: Sequelize.INTEGER
+      username: {
+        type: Sequelize.STRING
       },
       contribution: {
           type: Sequelize.STRING

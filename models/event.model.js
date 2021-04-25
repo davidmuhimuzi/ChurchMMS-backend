@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
 
   }, 
   {
-    tableName: 'events'
+    tableName: 'event'
   });
   return Event;
 };
