@@ -30,7 +30,8 @@ exports.create = (req, res) => {
         fam_pos: req.body.fam_pos,
         notes: req.body.notes,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        address: req.body.address
     };
 
     // Save Person in the database
@@ -99,6 +100,33 @@ exports.update = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: "Error updating Person with id=" + id
+        });
+    });
+};
+
+// Delete a Group Member with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    Person.destroy({
+        where: {
+            per_ID: id
+        }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Person was deleted successfully!"
+            });
+        } else {
+            res.send({
+                message: `Cannot delete member with id=${id}. Maybe member was not found!`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Could not delete member with id=" + id
         });
     });
 };

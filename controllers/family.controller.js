@@ -20,7 +20,8 @@ exports.create = (req, res) => {
         fam_name: req.body.fam_name,
         per_ID: req.body.per_ID,
         fam_email: req.body.fam_email,
-        fam_phone: req.body.fam_phone
+        fam_phone: req.body.fam_phone,
+        fam_address: req.body.fam_address,
     };
 
     // Save Family in the database

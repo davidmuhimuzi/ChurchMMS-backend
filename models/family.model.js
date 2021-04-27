@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       fam_phone: {
         type: Sequelize.STRING
+      },
+      fam_address: {
+        type: Sequelize.STRING
       }
     }, {
       tableName: 'family'
