@@ -35,6 +35,7 @@ exports.create = (req, res) => {
 // Retrieve all Attendees from the database.
 exports.findAttendeeForEvent = (req, res) => {
     const evt_ID = req.query.events;  
+    console.log('Hi');
 
     var condition = evt_ID ? {
         evt_ID: {
