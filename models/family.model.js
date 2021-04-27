@@ -15,6 +15,15 @@ module.exports = (sequelize, Sequelize) => {
       },
       per_ID: {
         type: Sequelize.INTEGER
+      },
+      fam_email: {
+        type: Sequelize.STRING
+      },
+      fam_phone: {
+        type: Sequelize.STRING
+      },
+      fam_address: {
+        type: Sequelize.STRING
       }
     }, {
       tableName: 'family'

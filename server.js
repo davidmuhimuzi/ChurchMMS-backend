@@ -43,6 +43,10 @@ function initial() {
     id: 3,
     name: "admin"
   });
+  Role.create({
+    id: 4,
+    name: "leader"
+  });
 }
 
 
@@ -54,8 +58,15 @@ require("./routes/event.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require("./routes/congregation.routes")(app);
+require("./routes/personcontact.routes")(app);
+require("./routes/group.routes")(app);
+require("./routes/groupmember.routes")(app);
+require("./routes/attendee.routes")(app);
 require("./routes/lifeevent.routes")(app);
 require("./routes/lifeeventperson.routes")(app);
+//require("./routes/personcontact.routes")(app);
+//require("./routes/communication.routes")(app);
+
 
 
 // set port, listen for requests

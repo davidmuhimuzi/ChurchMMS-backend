@@ -27,11 +27,14 @@ module.exports = (sequelize, Sequelize) => {
     },
     color: {
       type: Sequelize.STRING
+    },
+    attendance: {
+      type: Sequelize.INTEGER
     }
 
   }, 
   {
-    tableName: 'events'
+    tableName: 'event'
   });
   return Event;
 };

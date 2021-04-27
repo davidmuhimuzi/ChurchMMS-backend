@@ -41,16 +41,25 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       pub_permission: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       church_pos: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       fam_pos: {
         type: Sequelize.INTEGER,
       },
       notes: {
         type: Sequelize.STRING,
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
       }
     }, {
       tableName: 'person'

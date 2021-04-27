@@ -35,7 +35,28 @@ db.communication = require("./communication.model.js")(sequelize, Sequelize);
 db.personcontact = require("./personcontact.model.js")(sequelize, Sequelize);
 db.group = require("./group.model.js")(sequelize, Sequelize);
 db.groupmember = require("./groupmember.model.js")(sequelize, Sequelize);
+db.attendee = require("./attendee.model.js")(sequelize, Sequelize);
 
+
+db.event.hasMany(db.attendee, {
+  as: 'attendee', 
+  foreignKey: 'evt_ID'
+});
+
+db.attendee.belongsTo(db.event, {
+  as: 'event',
+  foreignKey: 'evt_ID'
+});
+
+db.person.hasMany(db.attendee, {
+  as: 'attendee',
+  foreignKey: 'per_ID'
+});
+
+db.attendee.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+});
 
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
