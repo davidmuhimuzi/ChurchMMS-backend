@@ -42,7 +42,7 @@ exports.findAttendeeForEvent = (req, res) => {
         }
     } : null;
 
-    Attendee.findAll({include:["event", "attendee"], where: condition })
+    Attendee.findAll({include:["event"], where: condition })
     .then(data => {
         res.send(data);
     })

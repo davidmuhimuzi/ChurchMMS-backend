@@ -46,6 +46,16 @@ db.attendee.belongsTo(db.event, {
   foreignKey: 'evt_ID'
 });
 
+db.person.hasMany(db.attendee, {
+  as: 'attendee',
+  foreignKey: 'per_ID'
+});
+
+db.attendee.belongsTo(db.person, {
+  as: 'person',
+  foreignKey: 'per_ID'
+});
+
 db.person.hasMany(db.familyperson, {
   as: 'familyperson',
   foreignKey: 'per_ID'
